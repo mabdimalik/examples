@@ -4,6 +4,10 @@ library(tidyverse)
 # Load the epi data
 epi_geo <- read.csv("so-dhis-epi-2017-9-geo.csv", stringsAsFactors = F)
 
+# Load the shapefiles
+regions <- read_sf("somalia/Som_Admbnda_Adm1_UNDP.shp")
+
+# Calculate drop out rate and reshape the data
 epi_wide <- epi_geo %>% 
     filter(Year == 2019 & Vaccine %in% c("Penta_1", "Penta_3")) %>% 
     group_by(OBJECTID, Region, Vaccine) %>% summarise(Dose=sum(Dose)) %>% 
